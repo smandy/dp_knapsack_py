@@ -1,3 +1,5 @@
+from pprint import pprint as pp
+
 def knapsack(weights, values, capacity):
     n = len(weights)
     # Initialize a table to store the maximum values for subproblems.
@@ -20,6 +22,7 @@ def knapsack(weights, values, capacity):
             j -= weights[i]
         i -= 1
 
+    pp( [(i, x) for i,x in enumerate(dp) ] )
     # Return the maximum value and the selected items.
     return dp[n - 1][capacity], selected_items
 
