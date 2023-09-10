@@ -8,8 +8,8 @@ def knapsack(weights, values, capacity):
     dp = defaultdict(int) ## Less dragons
 
     # Fill the dp table.
-    for i in range(n):
-        for w in range(capacity + 1):
+    for i in range(1,n):
+        for w in range(1, capacity + 1):
             if weights[i] <= w:
                 dp[(i, w)] = max(dp[ (i - 1, w) ], dp[ (i - 1, w - weights[i])] + values[i])
             else:
@@ -18,20 +18,25 @@ def knapsack(weights, values, capacity):
     # Reconstruct the solution.
     selected_items = []
     i, j = n - 1, capacity
-    while i >= 0 and j > 0:
+    while i > 0 and j > 0:
         if dp[(i,j)] != dp[ (i - 1,j) ]:
             selected_items.append(i)
+            print("Adding solution %s %s %s %s" % ( i, values[i], weights[i] , j))
             j -= weights[i]
         i -= 1
+        
+    pp( dp )
 
-    pp( [(i, x) for i,x in enumerate(dp) ] )
+    pp(len(dp))
     # Return the maximum value and the selected items.
     return dp[ (n - 1,capacity) ], selected_items
 
 # Example usage:
 weights = [2, 2, 3, 4, 5]
 values = [3, 4, 5, 6, 7]
-capacity = 10
+capacity = 17
 max_value, selected_items = knapsack(weights, values, capacity)
 print("Maximum value:", max_value)
 print("Selected items:", selected_items)
+print( [ values[i] for i in selected_items] )
+print( [ weights[i] for i in selected_items] )
