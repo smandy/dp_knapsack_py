@@ -21,7 +21,7 @@ def knapsack(weights, values, capacity):
     while i > 0 and j > 0:
         if dp[(i,j)] != dp[ (i - 1,j) ]:
             selected_items.append(i)
-            print("Adding solution %s %s %s %s" % ( i, values[i], weights[i] , j))
+            print("Adding solution (%s,%s) %s %s" % ( i, j, values[i], weights[i] ))
             j -= weights[i]
         i -= 1
         
