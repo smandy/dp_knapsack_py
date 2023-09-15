@@ -2,10 +2,9 @@ def knapsack(weights, values, capacity):
     n = len(weights)
     # Initialize a table to store the maximum values for subproblems.
     dp = [[0 for _ in range(capacity + 1)] for _ in range(n)]
-
     # Fill the dp table using dynamic programming.
-    for i in range(n):
-        for w in range(capacity + 1):
+    for i in range(n): # Index by values
+        for w in range(capacity + 1): # Index by weight
             if weights[i] <= w:
                 # If the current item can fit in the knapsack, we have two choices:
                 # 1. Include the item and add its value to the previous maximum value for the remaining capacity.
@@ -29,6 +28,7 @@ def knapsack(weights, values, capacity):
         i -= 1
 
     # Return the maximum value and the selected items.
+    # Another thunk.
     return dp[n - 1][capacity], selected_items
 
 # Example usage:
