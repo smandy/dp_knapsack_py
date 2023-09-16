@@ -8,6 +8,9 @@ def knapsack(values, weights, capacity):
         for w in range(capacity + 1):  # Loop through capacities (0 to capacity)
             # If the current item can fit in the knapsack (weight[i-1] <= w),
             # we have two choices: include it or exclude it.
+            if i == 0 or w == 0:
+                continue
+            
             if weights[i - 1] <= w:
                 # If we include the current item, update the maximum value.
                 included_value = dp[i - 1][w - weights[i - 1]] + values[i - 1]
@@ -34,7 +37,7 @@ def knapsack(values, weights, capacity):
         # If the value changed when the current item was included,
         # it means the item was selected. Add its index to the list.
         if dp[i][w] != dp[i - 1][w]:
-            print("Adding %s (%s vs %s)" % ((i-1), dp[i][w], dp[i-1][w]))
+            print("Adding %s value = %s (%s vs %s)" % ((i-1), weights[i-1], dp[i][w], dp[i-1][w]))
             selected_items.append(i - 1)
             # Subtract the weight of the selected item from the capacity.
             w -= weights[i - 1]
@@ -50,9 +53,22 @@ def knapsack(values, weights, capacity):
     return max_value, selected_items, dp
 
 # Example usage:
-values = [60, 100, 120]
-weights = [1, 2, 3]
-capacity = 5
+
+if 0:
+    values = [60, 100, 120]
+    weights = [1, 2, 3]
+    capacity = 5
+
+elif 0:
+    values = [1,2,3,4,5]
+    weights = [1,1,1,1,1]
+    capacity = 3
+elif 1:
+    values = [3,2,3,4,5]
+    weights = [1,1,1,1,7]
+    capacity = 10
+    
+    
 max_value, selected_items, dp = knapsack(values, weights, capacity)
 
 print("Maximum Value:", max_value)
