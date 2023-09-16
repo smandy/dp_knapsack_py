@@ -10,18 +10,22 @@ def knapsack(values, weights, capacity):
             # we have two choices: include it or exclude it.
             if i == 0 or w == 0:
                 continue
-            
+            excluded_value = dp[i - 1][w]
             if weights[i - 1] <= w:
                 # If we include the current item, update the maximum value.
                 included_value = dp[i - 1][w - weights[i - 1]] + values[i - 1]
-                # If we exclude the current item, the maximum value remains the same.
-                excluded_value = dp[i - 1][w]
 
+                #if included_value > excluded_value:
+                #    print("Including!")
+                
+                # If we exclude the current item, the maximum value remains the same.
                 print("%s %s inc = %s exc = %s" %
                       (i, w, included_value, excluded_value))
                 # Choose the maximum of the two values.
+
                 dp[i][w] = max(included_value, excluded_value)
             else:
+                dp[i][w] = excluded_value
                 print("%s %s Can't fit %s vs %s" % (i, w, weights[i-1], w))
 
     print()
@@ -54,7 +58,7 @@ def knapsack(values, weights, capacity):
 
 # Example usage:
 
-if 0:
+if 1:
     values = [60, 100, 120]
     weights = [1, 2, 3]
     capacity = 5
