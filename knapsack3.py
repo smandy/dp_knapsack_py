@@ -13,6 +13,9 @@ def knapsack(values, weights, capacity):
             excluded_value = dp[i - 1][w]
             if weights[i - 1] <= w:
                 # If we include the current item, update the maximum value.
+
+                print("included @ %s %s + %s" % (w, dp[i-1][w-weights[i-1]], values[i-1] ))
+                
                 included_value = dp[i - 1][w - weights[i - 1]] + values[i - 1]
 
                 #if included_value > excluded_value:
